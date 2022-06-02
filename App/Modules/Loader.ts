@@ -1,0 +1,2 @@
+import './ModuleA';
+import './ModuleB';

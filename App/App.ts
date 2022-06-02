@@ -6,6 +6,7 @@ export class App {
     public static Core = Core;
 }
 
+import "./Modules/Loader";
 const {ModuleManager} = App.Core;
 
 // Получаем по енуму, класс подставляет IDE
