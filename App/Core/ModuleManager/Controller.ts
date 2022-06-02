@@ -1,24 +1,23 @@
-import { Base } from "./Base";
-
 type TUniqueKey = keyof typeof GlobalNS.ModuleAliases;
 type TStoreValue = typeof GlobalNS.ModuleAliases[TUniqueKey];
+type TAliases = typeof GlobalNS.ModuleAliases;
+type TMap<T> = { -readonly [Property in keyof T]: T[Property] };
+type TStoreMap = TMap<typeof GlobalNS.ModuleAliases>
 
 export class Controller {
-    private static store: Map<TUniqueKey, TStoreValue> = new Map();
+    private static store = {} as TStoreMap;
 
-    public static Register(unqiueName: TUniqueKey, classDefenition: typeof Base): void {
+    public static Register<T extends TUniqueKey>(unqiueName: T, classDefenition: TAliases[T]): void {
         const logMessage = `[ PLUGIN REGISTERED ] With MetaData:`;
         console.log(logMessage, classDefenition.metainfo);
-        
-        this.store.set(unqiueName, classDefenition);
+
+        this.store[unqiueName] = classDefenition;
     }
 
-    public static Get<T extends TUniqueKey>(moduleName: T): Nullable<typeof GlobalNS['ModuleAliases'][T]> {
-        if (!this.store.has(moduleName))
+    public static Get<T extends TUniqueKey>(moduleName: T): TAliases[T] {
+        if (!this.store[moduleName])
             throw ReferenceError("Unknown module!");
 
-        // Да, эту траблу не смог победить
-        // @ts-ignore
-        return this.store.get(moduleName);
+        return this.store[moduleName];
     }
 }
