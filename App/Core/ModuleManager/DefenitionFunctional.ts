@@ -23,6 +23,7 @@ export function Define(
             constructor.metainfo.lastUpdate = lastUpdate;
 
         // Update enum values
+        // @ts-ignore
         EModuleAliases[unqiueName] = unqiueName;
 
         Controller.Register(unqiueName, constructor);

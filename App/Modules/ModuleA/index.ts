@@ -7,7 +7,7 @@ const {ModuleManager} = App.Core;
 @ModuleManager.Define("ModuleA",)
 export class ModuleA extends ModuleManager.Base {
     public static PrintHello(): void {
-        console.log("I'm moduleA", this.metainfo);
+        console.log("I'm moduleA");
     }
 
     public static OnlyModuleAMethod(): void {
